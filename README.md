@@ -4,6 +4,8 @@ Twitter bot for checking UCSC class enrollment/seat availability. Python 3.6.0
 
 ## Usage
 
+Remember to include your own Twitter Authentification keys in a separate, secret file! 
+
 ```
 $ python3 bot.py
 ```
