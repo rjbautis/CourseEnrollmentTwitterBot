@@ -1,4 +1,4 @@
-# EnrollmentGuyTwitterBot
+# CourseEnrollmentTwitterBot
 
 Twitter bot for checking UCSC class enrollment/seat availability. Python 3.6.0
 
