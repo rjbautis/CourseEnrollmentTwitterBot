@@ -26,7 +26,8 @@ ddTags = soup.findAll('dd')
 available_seats = ''
 enrollment_capacity = ''
 enrolled = ''
-
+waitlist_capacity = ''
+waitlist_total = ''
 
 # find 1st instance in the tree where class="col-xs-6", which displays current quarter
 current_quarter = soup.find("div", class_="col-xs-6")
@@ -43,12 +44,13 @@ def updated():
       return False
 
    soup = BeautifulSoup(page, 'html.parser')
+   ddTags = soup.findAll('dd')
    
-   global available_seats, enrollment_capacity, enrolled
+   global available_seats, enrollment_capacity, enrolled, waitlist_capacity, waitlist_total
 
    # check if values are still the same
    if(available_seats == ddTags[7].text and enrollment_capacity == ddTags[8].text and
-   enrolled == ddTags[9].text):
+   enrolled == ddTags[9].text and waitlist_capacity == ddTags[10].text and waitlist_total == ddTags[11].text):
       print("Enrollment values are unchanged")
       return False
 
@@ -57,8 +59,20 @@ def updated():
    enrollment_capacity = ddTags[8].text
    enrolled = ddTags[9].text
 
+   # if(waitlist_capacity == ddTags[10].text and waitlist_total == ddTags[11].text):
+   #    print("Enrollment values are unchanged")
+   #    return False
+
+   waitlist_capacity = ddTags[10].text
+   waitlist_total = ddTags[11].text
+
+
    print("{}/{} students have enrolled in {} for {}." \
-      " There are {} seats available.".format(enrolled, enrollment_capacity, course_name, current_quarter, available_seats))
+      " There are {} seats available.\n{}/{} students have already waitlisted for the class." \
+      .format(enrolled, enrollment_capacity, course_name, current_quarter, available_seats, waitlist_total, waitlist_capacity))
+
+   # print("{}/{} students have already waitlisted for {} for {}."\
+   #       .format(waitlist_total, waitlist_capacity, course_name, current_quarter))
 
    return True
 
@@ -66,7 +80,8 @@ def updated():
 # post tweet
 def postTweet():
    api.update_status("{}/{} students have enrolled in {} for {}." \
-      " There are {} seats available.".format(enrolled, enrollment_capacity, course_name, current_quarter, available_seats))
+      " There are {} seats available.\n{}/{} students have already waitlisted for the class." \
+      .format(enrolled, enrollment_capacity, course_name, current_quarter, available_seats, waitlist_total, waitlist_capacity))
 
 
 if __name__ == '__main__':
