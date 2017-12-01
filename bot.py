@@ -58,11 +58,6 @@ def updated():
    available_seats = ddTags[7].text
    enrollment_capacity = ddTags[8].text
    enrolled = ddTags[9].text
-
-   # if(waitlist_capacity == ddTags[10].text and waitlist_total == ddTags[11].text):
-   #    print("Enrollment values are unchanged")
-   #    return False
-
    waitlist_capacity = ddTags[10].text
    waitlist_total = ddTags[11].text
 
@@ -70,9 +65,6 @@ def updated():
    print("{}/{} students have enrolled in {} for {}." \
       " There are {} seats available.\n{}/{} students have already waitlisted for the class." \
       .format(enrolled, enrollment_capacity, course_name, current_quarter, available_seats, waitlist_total, waitlist_capacity))
-
-   # print("{}/{} students have already waitlisted for {} for {}."\
-   #       .format(waitlist_total, waitlist_capacity, course_name, current_quarter))
 
    return True
 
